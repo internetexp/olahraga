@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pendaftaran Olahraga</title>
+    <style>
+        /* Basic styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #72edf2 0%, #5151e5 100%);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .form-container {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 500px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .form-container h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], input[type="number"], select, input[type="file"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Pendaftaran Olahraga</h1>
+        <form id="registrationForm">
+            <label for="nama">Nama Lengkap:</label>
+            <input type="text" id="nama" name="nama" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="jenis_kelamin">Jenis Kelamin:</label>
+            <select id="jenis_kelamin" name="jenis_kelamin">
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+            </select>
+
+            <label for="umur">Umur:</label>
+            <input type="number" id="umur" name="umur" min="10" required>
+
+            <label for="jenis_olahraga">Pilih Jenis Olahraga:</label>
+            <select id="jenis_olahraga" name="jenis_olahraga">
+                <option value="Futsal">Futsal</option>
+                <option value="Basket">Basket</option>
+                <option value="Renang">Renang</option>
+            </select>
+
+            <label for="gambar">Upload Gambar:</label>
+            <input type="file" id="gambar" name="gambar" accept="image/*" required>
+
+            <input type="submit" value="Daftar">
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const nama = document.getElementById("nama").value;
+            const email = document.getElementById("email").value;
+            const jenisKelamin = document.getElementById("jenis_kelamin").value;
+            const umur = document.getElementById("umur").value;
+            const jenisOlahraga = document.getElementById("jenis_olahraga").value;
+            const fileInput = document.getElementById("gambar").files[0];
+            
+            localStorage.setItem("nama", nama);
+            localStorage.setItem("email", email);
+            localStorage.setItem("jenisKelamin", jenisKelamin);
+            localStorage.setItem("umur", umur);
+            localStorage.setItem("jenisOlahraga", jenisOlahraga);
+    
+            if (fileInput) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    localStorage.setItem("uploadedImage", e.target.result);
+                    alert("Pendaftaran berhasil!");
+                    window.location.href = "index.html";
+                };
+                reader.readAsDataURL(fileInput);
+            }
+        });
+    </script>
+    
+</body>
+</html>
